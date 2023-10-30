@@ -1,5 +1,5 @@
 const notFound = (req, res, next) => {
-  const error = new Error(`Not Found - ${req.originalUrl}`);
+  const error = new Error(`Не знайдено - ${req.originalUrl}`);
   res.status(404);
   next(error);
 };
@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
 
   if (err.name === "CastError" && err.kind === "ObjectId") {
     statusCode = 404;
-    message = "Resource not found";
+    message = "Ресурс не знайдено";
   }
 
   res.status(statusCode).json({
