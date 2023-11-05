@@ -23,14 +23,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+const frontendRoot = path.join(__dirname, process.env.FRONTEND_ROOT);
+
 app.use("/api/users", userRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  app.use(express.static(path.join(frontendRoot)));
 
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
+    res.sendFile(path.join(frontendRoot, "index.html"))
   );
 } else {
   app.get("/", (req, res) => {
